@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<config>
+<experiment config-class="org.anchoranalysis.launcher.executor.BeanFixture" fileInput="../input/ellipseFitting.tif" directoryOutput="../output/" inputName="stackInput">
+
+	<task config-class="org.anchoranalysis.ANonExistentClass"/>
+	
+</experiment>
+</config>

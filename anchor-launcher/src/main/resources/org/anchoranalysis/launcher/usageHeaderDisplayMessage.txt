@@ -1,0 +1,2 @@
+Runs image processing tasks on sets of images (inputs).
+

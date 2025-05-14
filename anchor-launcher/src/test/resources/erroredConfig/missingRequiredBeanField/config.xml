@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<config>
+<experiment config-class="org.anchoranalysis.launcher.executor.BeanFixture" fileInput="../input/ellipseFitting.tif" directoryOutput="../output/" inputName="stackInput">
+
+    <logTask config-class="org.anchoranalysis.experiment.bean.log.ToConsole"/>
+
+	<task config-class="org.anchoranalysis.plugin.mpp.bean.define.Develop" dictionary="input_dictionary">
+		  <define suppressSubfolders="false" config-class="org.anchoranalysis.plugin.mpp.bean.define.DefineOutputter">
+		  		<define config-class="java.util.List" config-factory="include" filePath="namedDefinitions.xml"/>
+		  </define>
+	</task>
+	
+</experiment>
+</config>

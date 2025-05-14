@@ -1,0 +1,6 @@
+
+An experiment combines three elements:  outputs = task(inputs)
+Learn more at https://www.anchoranalysis.org/user_guide.html
+
+Execute a predefined task with:  anchor -t <taskName>
+(type anchor -st to see available tasks!)
