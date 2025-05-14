@@ -7,7 +7,7 @@
     </parent>
     <artifactId>anchor-launcher-addplugins</artifactId>
     <packaging>pom</packaging>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	
 	<description>A CLI app for starting Anchor tasks, and that depends on all relevant JARS including all distributed plugins..</description>
 
@@ -36,7 +36,7 @@
 		<connection>scm:git:git@github.com:anchoranalysis/anchor-launcher.git</connection>
 		<developerConnection>scm:git:git@github.com:anchoranalysis/anchor-launcher.git</developerConnection>
 		<url>https://github.com/anchoranalysis/anchor-launcher</url>
-		<tag>HEAD</tag>
+		<tag>anchor-launcher-addplugins-1.0.0</tag>
 	</scm>
 	
 	<!-- For connecting to SonarCloud. -->
@@ -58,7 +58,7 @@
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-io</artifactId>
-		  <version>1.0.0-SNAPSHOT</version>
+		  <version>1.0.0</version>
 		</dependency>
 	
 		<!-- Plugins we wish to 'add' to the modules -->
@@ -66,61 +66,61 @@
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-imagej</artifactId>
-		  <version>1.0.0-SNAPSHOT</version>
+		  <version>1.0.0</version>
 		</dependency>
 		
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-image</artifactId>
-		  <version>1.0.0-SNAPSHOT</version>
+		  <version>1.0.0</version>
 		</dependency>
 
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-mpp</artifactId>
-		  <version>1.0.0-SNAPSHOT</version>
+		  <version>1.0.0</version>
 		</dependency>
 
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-operator-feature</artifactId>
-		  <version>1.0.0-SNAPSHOT</version>
+		  <version>1.0.0</version>
 		</dependency>
 		
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-image-feature</artifactId>
-		  <version>1.0.0-SNAPSHOT</version>
+		  <version>1.0.0</version>
 		</dependency>
 		
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-image-task</artifactId>
-		  <version>1.0.0-SNAPSHOT</version>
+		  <version>1.0.0</version>
 		</dependency>
 
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-points</artifactId>
-		  <version>1.0.0-SNAPSHOT</version>
+		  <version>1.0.0</version>
 		</dependency>
 		
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-annotation</artifactId>
-		  <version>1.0.0-SNAPSHOT</version>
+		  <version>1.0.0</version>
 		</dependency>	
 		
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-opencv</artifactId>
-		  <version>1.0.0-SNAPSHOT</version>
+		  <version>1.0.0</version>
 		</dependency>
 		
 		<dependency>
 		  <groupId>${project.groupId}</groupId>
 		  <artifactId>anchor-plugin-onnx</artifactId>
-		  <version>1.0.0-SNAPSHOT</version>
+		  <version>1.0.0</version>
 		</dependency>
 		
 		<dependency>
