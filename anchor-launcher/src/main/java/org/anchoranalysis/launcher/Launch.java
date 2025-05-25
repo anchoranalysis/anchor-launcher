@@ -10,10 +10,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,8 +26,6 @@
 
 package org.anchoranalysis.launcher;
 
-import java.nio.file.Path;
-import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.anchoranalysis.core.log.Logger;
@@ -46,43 +44,23 @@ public class Launch {
     /**
      * Entry point for command-line application.
      *
-     * <p>The output-folder may open in the desktop, depending on the arguments passed, and whether
-     * it is supported by the local operating-system.
-     *
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        runCommandLineApplication(args, Optional.empty());
-    }
-
-    /**
-     * Like {@link #main(String[])} but additionally specifies a path to the default-experiment.
-     *
-     * <p>This function may be useful for automated tests that aren't CLIs but call this library
-     * simulating a CLI.
-     *
-     * <p>The output-folder does not open in the desktop, as it is presumed this method is being
-     * called for testing purposes.
-     *
-     * @param args command line arguments
-     * @param defaultExperiment the path to the default-experiment, if it is known, or empty if
-     *     unknown
-     */
-    public static void mainDefaultExperiment(String[] args, Path defaultExperiment) {
-        runCommandLineApplication(args, Optional.of(defaultExperiment));
+        Logger logger = new Logger(new ConsoleMessageLogger());
+        runCommandLineApplication(args, new LauncherConfigCommandLine(), logger);
     }
 
     /**
      * Runs a command-line application, by parsing arguments, and then executing an experiment.
      *
      * @param args arguments from command-line application
-     * @param defaultExperiment the path to the default-experiment, if it is known, or empty if
-     *     unknown
+     * @param config a {@link LauncherConfig} for this command-line application
+     * @param logger a {@link Logger} for logging messages
      */
-    private static void runCommandLineApplication(String[] args, Optional<Path> defaultExperiment) {
-        Logger logger = new Logger(new ConsoleMessageLogger());
-        LauncherConfig config = new LauncherConfigCommandLine();
+    public static void runCommandLineApplication(
+            String[] args, LauncherConfig config, Logger logger) {
         DirtyInitializer.dirtyInitialization();
-        new ParseArgumentsAndRunExperiment(logger, defaultExperiment).parseAndRun(args, config);
+        new ParseArgumentsAndRunExperiment(logger).parseAndRun(args, config);
     }
 }

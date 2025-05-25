@@ -10,10 +10,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -29,7 +29,6 @@ package org.anchoranalysis.launcher.run;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.anchoranalysis.core.exception.friendly.AnchorFriendlyRuntimeException;
 import org.anchoranalysis.core.log.Logger;
@@ -65,9 +64,6 @@ public class ParseArgumentsAndRunExperiment {
     // START REQUIRED ARGUMENTS
     /** For reporting messages on what goes wrong */
     private final Logger logger;
-
-    /** The path to the default-experiment, if it is known or empty if unknown. */
-    private final Optional<Path> defaultExperiment;
 
     // END REQUIRED ARGUMENTS
 
@@ -162,7 +158,7 @@ public class ParseArgumentsAndRunExperiment {
             CommandLine line, Logger logger, LauncherConfig config, MessagePrinter messagePrinter)
             throws ExperimentExecutionException {
 
-        ExperimentExecutor executor = config.createExperimentExecutor(line, defaultExperiment);
+        ExperimentExecutor executor = config.createExperimentExecutor(line);
 
         if (messagePrinter.maybeShowTasks(line, executor.taskDirectory())) {
             // Exit early if we've shown the available tasks.

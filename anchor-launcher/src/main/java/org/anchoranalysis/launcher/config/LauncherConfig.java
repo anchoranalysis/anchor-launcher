@@ -12,10 +12,10 @@ package org.anchoranalysis.launcher.config;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -27,8 +27,6 @@ package org.anchoranalysis.launcher.config;
  */
 
 import java.nio.file.Path;
-import java.util.Optional;
-import org.anchoranalysis.core.functional.OptionalUtilities;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
@@ -88,22 +86,19 @@ public abstract class LauncherConfig {
      * Creates an experiment executor from the command line.
      *
      * @param line the {@link CommandLine} containing parsed command-line arguments
-     * @param defaultExperiment if known, a path to where the default experiment is located.
      * @return the created {@link ExperimentExecutor}
      * @throws ExperimentExecutionException if there's an error creating the executor
      */
-    public ExperimentExecutor createExperimentExecutor(
-            CommandLine line, Optional<Path> defaultExperiment)
+    public ExperimentExecutor createExperimentExecutor(CommandLine line)
             throws ExperimentExecutionException {
 
-        // If a path is supplied use it, or else infer where the default-experiment is from a
-        // properties file.
-        Path path =
-                OptionalUtilities.orElseGet(
-                        defaultExperiment, this::inferPathDefaultExperimentFromProperties);
+        Path pathCurrentJARDir = PathCurrentJarHelper.pathCurrentJAR(classInCurrentJar());
+
+        Path pathDefaultExperiment = pathDefaultExperiment(pathCurrentJARDir);
 
         // Assumes config-dir is always the directory of defaultExperiment.xml
-        return ExperimentExecutorFactory.create(line, path, path.getParent());
+        return ExperimentExecutorFactory.create(
+                line, pathDefaultExperiment, pathDefaultExperiment.getParent());
     }
 
     /**
@@ -133,17 +128,13 @@ public abstract class LauncherConfig {
     protected abstract Class<?> classInCurrentJar();
 
     /**
-     * Infer the path to the default experiment from a properties file.
+     * Determines the path to the default experiment.
      *
-     * <p>The path to the current executing JAR is used to search for this properties file.
-     *
+     * @param pathCurrentJARDir the {@link Path} to the current JAR directory
      * @return a {@link Path} to the default experiment
      * @throws ExperimentExecutionException if there's an error determining the path
      */
-    private Path inferPathDefaultExperimentFromProperties() throws ExperimentExecutionException {
-
-        Path pathCurrentJARDir = PathCurrentJarHelper.pathCurrentJAR(classInCurrentJar());
-
+    private Path pathDefaultExperiment(Path pathCurrentJARDir) throws ExperimentExecutionException {
         return PathDeriver.pathDefaultExperiment(pathCurrentJARDir, pathRelativeProperties());
     }
 }
