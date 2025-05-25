@@ -6,23 +6,29 @@ package org.anchoranalysis.launcher.config;
  * %%
  * Copyright (C) 2010 - 2019 Owen Feehan, ETH Zurich, University of Zurich, Hoffmann la Roche
  * %%
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
- * You should have received a copy of the GNU General Public
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  * #L%
  */
 
 import java.nio.file.Path;
+import java.util.Optional;
+import org.anchoranalysis.core.functional.OptionalUtilities;
 import org.anchoranalysis.experiment.ExperimentExecutionException;
 import org.anchoranalysis.experiment.arguments.ExecutionArguments;
 import org.anchoranalysis.launcher.executor.ExperimentExecutor;
@@ -82,19 +88,22 @@ public abstract class LauncherConfig {
      * Creates an experiment executor from the command line.
      *
      * @param line the {@link CommandLine} containing parsed command-line arguments
+     * @param defaultExperiment if known, a path to where the default experiment is located.
      * @return the created {@link ExperimentExecutor}
      * @throws ExperimentExecutionException if there's an error creating the executor
      */
-    public ExperimentExecutor createExperimentExecutor(CommandLine line)
+    public ExperimentExecutor createExperimentExecutor(
+            CommandLine line, Optional<Path> defaultExperiment)
             throws ExperimentExecutionException {
 
-        Path pathCurrentJARDir = PathCurrentJarHelper.pathCurrentJAR(classInCurrentJar());
-
-        Path pathDefaultExperiment = pathDefaultExperiment(pathCurrentJARDir);
+        // If a path is supplied use it, or else infer where the default-experiment is from a
+        // properties file.
+        Path path =
+                OptionalUtilities.orElseGet(
+                        defaultExperiment, this::inferPathDefaultExperimentFromProperties);
 
         // Assumes config-dir is always the directory of defaultExperiment.xml
-        return ExperimentExecutorFactory.create(
-                line, pathDefaultExperiment, pathDefaultExperiment.getParent());
+        return ExperimentExecutorFactory.create(line, path, path.getParent());
     }
 
     /**
@@ -124,13 +133,17 @@ public abstract class LauncherConfig {
     protected abstract Class<?> classInCurrentJar();
 
     /**
-     * Determines the path to the default experiment.
+     * Infer the path to the default experiment from a properties file.
      *
-     * @param pathCurrentJARDir the {@link Path} to the current JAR directory
+     * <p>The path to the current executing JAR is used to search for this properties file.
+     *
      * @return a {@link Path} to the default experiment
      * @throws ExperimentExecutionException if there's an error determining the path
      */
-    private Path pathDefaultExperiment(Path pathCurrentJARDir) throws ExperimentExecutionException {
+    private Path inferPathDefaultExperimentFromProperties() throws ExperimentExecutionException {
+
+        Path pathCurrentJARDir = PathCurrentJarHelper.pathCurrentJAR(classInCurrentJar());
+
         return PathDeriver.pathDefaultExperiment(pathCurrentJARDir, pathRelativeProperties());
     }
 }
