@@ -53,31 +53,31 @@
   	<dependency>
 	  <groupId>${project.groupId}</groupId>
 	  <artifactId>anchor-bean</artifactId>
-	  <version>1.0.1-SNAPSHOT</version>
+	  <version>1.1.2</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>${project.groupId}</groupId>
 	  <artifactId>anchor-experiment</artifactId>
-	  <version>1.0.1-SNAPSHOT</version>
+	  <version>1.1.2</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>${project.groupId}</groupId>
 	  <artifactId>anchor-image-bean</artifactId>
-	  <version>1.0.1-SNAPSHOT</version>
+	  <version>1.1.2</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>${project.groupId}</groupId>
 	  <artifactId>anchor-core</artifactId>
-	  <version>1.0.1-SNAPSHOT</version>
+	  <version>1.1.2</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>${project.groupId}</groupId>
 	  <artifactId>anchor-image-io</artifactId>
-	  <version>1.0.1-SNAPSHOT</version>
+	  <version>1.1.2</version>
 	</dependency>
 	
 	<dependency>
@@ -91,12 +91,12 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>anchor-io-bioformats</artifactId>
-      <version>1.0.1-SNAPSHOT</version>
+      <version>1.1.2</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>anchor-imagej</artifactId>
-      <version>1.0.1-SNAPSHOT</version>
+      <version>1.1.2</version>
     </dependency>
     <!--  END ADDITIONAL DEPENDENCIES FOR ASSSEMBLY -->
     
@@ -104,7 +104,7 @@
 	<dependency>
 	  <groupId>${project.groupId}</groupId>
 	  <artifactId>anchor-test</artifactId>
-	  <version>1.0.1-SNAPSHOT</version>
+	  <version>1.1.2</version>
 	  <scope>test</scope>
 	</dependency>
 	
