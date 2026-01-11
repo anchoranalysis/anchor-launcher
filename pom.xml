@@ -60,6 +60,11 @@
 		  <artifactId>anchor-plugin-io</artifactId>
 		  <version>1.0.3</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 	
 		<!-- Plugins we wish to 'add' to the modules -->
 	 
